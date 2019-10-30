@@ -94,6 +94,12 @@ public class Node implements Comparable<Node> {
         }
     }
 
+    public void swapNumbers(Node other){
+        int temp = this.number;
+        this.setNumber(other.getNumber());
+        other.setNumber(temp);
+    }
+
     public void swapParent(Node v)
     {
         this.getParent().swapChild(this, v);
@@ -104,10 +110,7 @@ public class Node implements Comparable<Node> {
         v.setParent(temp);
     }
 
-    public void swapNumber(Node v){
-        int temp = v.getNumber();
-        this.setNumber(v.getNumber());
-        v.setNumber(temp);
+    public String toString(){
+        return "" + (symbol == 256 ? "NYT" : (char)symbol) + "," + counter + "," + number;
     }
-
 }

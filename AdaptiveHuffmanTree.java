@@ -3,6 +3,7 @@ Notes:
 NYT Node symbol ID is ALPHA_SIZE
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
@@ -50,13 +51,16 @@ public class AdaptiveHuffmanTree {
             Node newNYT = new Node(ALPHA_SIZE, 0, p.getNumber() - 2, null, null, p);
             Node symbolNode = new Node(c, 1, p.getNumber() - 1, null, null, p);
             removeNode(p);
+
             p.setLeftChild(newNYT);
             p.setRightChild(symbolNode);
             p.setCounter(1);
             p.setSymbol(0);
-            addNode(symbolNode);
+
             addNode(p);
+            addNode(symbolNode);
             addNode(newNYT);
+            p = p.getParent();
         }
         else{
             p = find(c);
@@ -67,17 +71,17 @@ public class AdaptiveHuffmanTree {
     }
 
     private void updateTree(Node p){
-        if (p == root)
+        if (p == null)
             return;
-        p = p.getParent();
         checkSwap(p);
         incrementCounter(p);
-        updateTree(p);
+        updateTree(p.getParent());
     }
 
     private void removeNode(Node p){
-        if (block.containsKey(p.getCounter()))
+        if (block.containsKey(p.getCounter())) {
             block.get(p.getCounter()).remove(p);
+        }
     }
 
     private void addNode(Node p){
@@ -87,7 +91,6 @@ public class AdaptiveHuffmanTree {
     }
 
     private void incrementCounter(Node p){
-        removeNode(p);
         p.setCounter(p.getCounter() + 1);
         addNode(p);
     }
@@ -96,9 +99,6 @@ public class AdaptiveHuffmanTree {
         Node swapNode = null;
         TreeSet<Node> currentBlock = block.get(p.getCounter());
 
-        /*
-        OPTIMIZE this is a treeSet no need to check for all....
-         */
         for (Node v : currentBlock){
             if (v.getNumber() > p.getNumber() && v.getLeftChild() != p && v.getRightChild() != p)
             {
@@ -107,15 +107,37 @@ public class AdaptiveHuffmanTree {
             }
         }
 
-        if (swapNode != null){
+        removeNode(p);
+        if (swapNode != null)
+        {
+            removeNode(swapNode);
             p.swapParent(swapNode);
-            p.swapNumber(swapNode);
+            p.swapNumbers(swapNode);
+            addNode(swapNode);
             return true;
         }
         return false;
     }
 
+
     public boolean isTransmitted(int c){
         return transmitted[c];
+    }
+
+    public void printTree(){
+        printTree(root, 0, 10);
+    }
+
+    private void printTree(Node p, int spaces, int COUNT){
+        if (p == null)
+            return;
+        spaces += COUNT;
+        printTree(p.getRightChild(), spaces, COUNT);
+        System.out.println();
+        for (int i = COUNT; i < spaces; ++i)
+            System.out.print(" ");
+        System.out.println(p.toString());
+        printTree(p.getLeftChild(), spaces, COUNT);
+
     }
 }

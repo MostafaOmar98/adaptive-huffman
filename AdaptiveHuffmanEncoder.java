@@ -19,10 +19,15 @@ public class AdaptiveHuffmanEncoder {
                 sendCode(getCode(s.charAt(i)));
             }
             tree.updateTree(s.charAt(i));
+
+//            System.out.println("At step: " + i);
+//            tree.printTree();
+//            System.out.println("Finished step: " + i + '\n');
         }
     }
 
-    String getCode(Node p){
+    String getCode(Node p)
+    {
         if (p.getParent() == null)
             return "";
         Node parent = p.getParent();
