@@ -140,4 +140,17 @@ public class AdaptiveHuffmanTree {
         printTree(p.getLeftChild(), spaces, COUNT);
 
     }
+
+    private Node find(int i, Node p, String s){
+        if (i == s.length())
+            return p;
+        if (s.charAt(i) == '0')
+            return find(i + 1, p.getLeftChild(), s);
+        return find(i + 1, p.getRightChild(), s);
+    }
+
+    public Node find(String s){
+        return find(0, root, s);
+    }
+
 }

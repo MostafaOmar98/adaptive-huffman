@@ -9,13 +9,17 @@ public class AdaptiveHuffmanEncoder {
         tree = new AdaptiveHuffmanTree(ALPHA_SIZE);
     }
 
-    public void encode(String s){
+    public String encode(String s){
+        String ret = "";
         for (int i = 0; i < s.length(); ++i){
             if (!tree.isTransmitted(s.charAt(i))){
+                ret += getCode(ALPHA_SIZE);
+                ret += getShortCode(s.charAt(i));
                 sendCode(getCode(ALPHA_SIZE));
                 sendCode(getShortCode(s.charAt(i)));
             }
             else{
+                ret += getCode(s.charAt(i));
                 sendCode(getCode(s.charAt(i)));
             }
             tree.updateTree(s.charAt(i));
@@ -24,6 +28,7 @@ public class AdaptiveHuffmanEncoder {
 //            tree.printTree();
 //            System.out.println("Finished step: " + i + '\n');
         }
+        return ret;
     }
 
     String getCode(Node p)

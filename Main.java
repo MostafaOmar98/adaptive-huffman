@@ -12,6 +12,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String s = sc.nextLine();
-        encoder.encode(s);
+        String ret = encoder.encode(s);
+        System.out.println();
+        AdaptiveHuffmanDecoder decoder = new AdaptiveHuffmanDecoder(8);
+        decoder.decode(ret);
     }
 }
