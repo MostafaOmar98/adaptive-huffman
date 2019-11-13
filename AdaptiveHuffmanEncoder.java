@@ -47,7 +47,7 @@ public class AdaptiveHuffmanEncoder {
     }
 
     private void sendCode(String s){
-        System.out.print(s + " ");
+        System.out.print(s);
     }
 
     private String getShortCode(int x){
