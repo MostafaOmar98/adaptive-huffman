@@ -18,8 +18,8 @@ public class AdaptiveHuffmanDecoder {
                 int c;
                 if (i == 0 || p.getSymbol() == ALPHA_SIZE){
                     int add = (i == 0) ? 0 : 1;
-                    String character = s.substring(i + add, i + add + 8);
-                    i += 7 + add;
+                    String character = s.substring(i + add, i + add + BITS);
+                    i += BITS - 1 + add;
                     c = getCharacter(character);
                     System.out.print((char)c);
                 }

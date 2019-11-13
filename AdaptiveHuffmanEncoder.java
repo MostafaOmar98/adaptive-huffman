@@ -47,6 +47,7 @@ public class AdaptiveHuffmanEncoder {
     }
 
     private void sendCode(String s){
+//        System.out.print(" ");
         System.out.print(s);
     }
 

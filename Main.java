@@ -7,13 +7,13 @@ public class Main {
     00 0 01 00 10 101 0 001 01 11 0
      */
     public static void main(String[] args) {
-        AdaptiveHuffmanEncoder encoder = new AdaptiveHuffmanEncoder(8);
+        AdaptiveHuffmanEncoder encoder = new AdaptiveHuffmanEncoder(10);
         Scanner sc = new Scanner(System.in);
 
         String s = sc.nextLine();
         String ret = encoder.encode(s);
         System.out.println();
-        AdaptiveHuffmanDecoder decoder = new AdaptiveHuffmanDecoder(8);
+        AdaptiveHuffmanDecoder decoder = new AdaptiveHuffmanDecoder(10);
         decoder.decode(ret);
     }
 }
